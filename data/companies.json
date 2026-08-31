@@ -1,0 +1,42 @@
+[
+  {
+    "name": "PayPal",
+    "careers_url": "https://paypal.eightfold.ai/careers",
+    "ats_type": "eightfold"
+  },
+  {
+    "name": "Visa",
+    "careers_url": "https://search.visa.com/careers/jobs",
+    "ats_type": "custom"
+  },
+  {
+    "name": "Wise",
+    "careers_url": "https://wise.jobs/roles/",
+    "ats_type": "custom"
+  },
+  {
+    "name": "Circle",
+    "careers_url": "https://www.circle.com/en/careers",
+    "ats_type": "greenhouse"
+  },
+  {
+    "name": "Cloudflare",
+    "careers_url": "https://www.cloudflare.com/careers/jobs/",
+    "ats_type": "greenhouse"
+  },
+  {
+    "name": "Atlassian",
+    "careers_url": "https://www.atlassian.com/company/careers/all-jobs",
+    "ats_type": "lever"
+  },
+  {
+    "name": "Apple",
+    "careers_url": "https://jobs.apple.com/en-us/search",
+    "ats_type": "custom"
+  },
+  {
+    "name": "Meta",
+    "careers_url": "https://www.metacareers.com/jobs",
+    "ats_type": "custom"
+  }
+]

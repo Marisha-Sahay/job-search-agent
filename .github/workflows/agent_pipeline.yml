@@ -1,0 +1,62 @@
+name: Job Search Agent Pipeline
+
+on:
+  schedule:
+    # Run twice a day at 8 AM and 8 PM UTC (3 AM / 3 PM CDT)
+    - cron: '0 8,20 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  run-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Scraper
+        run: python main.py
+
+      - name: Commit seen jobs back to repository
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/jobs.json
+          # Only commit if there are changes
+          git commit -m "chore: update jobs.json with latest scrape [skip ci]" || echo "No changes to commit"
+          git push
+
+      - name: Prepare Web Deployment
+        run: |
+          # Copy the latest jobs.json into the web folder for deployment
+          if [ -f "data/jobs.json" ]; then
+            cp data/jobs.json web/jobs.json
+          else
+            echo "[]" > web/jobs.json
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: './web'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
