@@ -151,5 +151,41 @@
     "location": "Austin",
     "date_found": "2026-09-02T22:28:44.942998",
     "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-10993053",
+    "title": "Staff Software Engineer",
+    "company": "General Motors",
+    "url": "https://www.builtinaustin.com/job/staff-software-engineer/10993053",
+    "location": "Austin",
+    "date_found": "2026-09-03T12:43:08.885090",
+    "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-10991698",
+    "title": "Senior Software Engineer - Addressing Team",
+    "company": "Cloudflare",
+    "url": "https://www.builtinaustin.com/job/senior-software-engineer-addressing-team/10991698",
+    "location": "Austin",
+    "date_found": "2026-09-03T12:43:08.885098",
+    "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-10991688",
+    "title": "Senior Software Engineer, R2 Gateway",
+    "company": "Cloudflare",
+    "url": "https://www.builtinaustin.com/job/senior-software-engineer-r2-gateway/10991688",
+    "location": "Austin",
+    "date_found": "2026-09-03T12:43:08.885102",
+    "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-10991681",
+    "title": "Senior Software Engineer, Network On-Ramps",
+    "company": "Cloudflare",
+    "url": "https://www.builtinaustin.com/job/senior-software-engineer-network-ramps/10991681",
+    "location": "Austin",
+    "date_found": "2026-09-03T12:43:08.885139",
+    "source": "Built In Austin"
   }
 ]
