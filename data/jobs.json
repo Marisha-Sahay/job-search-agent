@@ -268,5 +268,32 @@
     "location": "Austin",
     "date_found": "2026-09-09T12:50:43.209827",
     "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-11094946",
+    "title": "Staff Software Engineer - Vehicle AI",
+    "company": "General Motors",
+    "url": "https://www.builtinaustin.com/job/staff-software-engineer-vehicle-ai/11094946",
+    "location": "Austin",
+    "date_found": "2026-09-10T12:48:42.078206",
+    "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-11093571",
+    "title": "Senior Distributed Systems Engineer - Cache",
+    "company": "Cloudflare",
+    "url": "https://www.builtinaustin.com/job/senior-distributed-systems-engineer-cache/11093571",
+    "location": "Austin",
+    "date_found": "2026-09-10T12:48:42.078221",
+    "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-11093527",
+    "title": "Senior Software Engineer, Deploy at Scale",
+    "company": "Cloudflare",
+    "url": "https://www.builtinaustin.com/job/senior-software-engineer-deploy-scale/11093527",
+    "location": "Austin",
+    "date_found": "2026-09-10T12:48:42.078230",
+    "source": "Built In Austin"
   }
 ]
