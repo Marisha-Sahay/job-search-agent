@@ -322,5 +322,23 @@
     "location": "Austin",
     "date_found": "2026-09-11T22:22:10.299117",
     "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-10788120",
+    "title": "Senior Software Engineer",
+    "company": "General Motors",
+    "url": "https://www.builtinaustin.com/job/senior-software-engineer/10788120",
+    "location": "Austin",
+    "date_found": "2026-09-15T13:19:43.093330",
+    "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-11173990",
+    "title": "Senior Software Engineer, Internal Fraud Platform",
+    "company": "Cloudflare",
+    "url": "https://www.builtinaustin.com/job/senior-software-engineer-internal-fraud-platform/11173990",
+    "location": "Austin",
+    "date_found": "2026-09-15T13:19:43.093341",
+    "source": "Built In Austin"
   }
 ]
