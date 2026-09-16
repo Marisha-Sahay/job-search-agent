@@ -358,5 +358,23 @@
     "location": "Austin",
     "date_found": "2026-09-15T22:46:44.323307",
     "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-11198464",
+    "title": "Staff Software Engineer - Golang",
+    "company": "General Motors",
+    "url": "https://www.builtinaustin.com/job/staff-software-engineer-golang/11198464",
+    "location": "Austin",
+    "date_found": "2026-09-16T13:17:40.049078",
+    "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-11198441",
+    "title": "Senior Frontend Engineer - Vehicle Software Integrity",
+    "company": "General Motors",
+    "url": "https://www.builtinaustin.com/job/senior-frontend-engineer-vehicle-software-integrity/11198441",
+    "location": "Austin",
+    "date_found": "2026-09-16T13:17:40.049096",
+    "source": "Built In Austin"
   }
 ]
