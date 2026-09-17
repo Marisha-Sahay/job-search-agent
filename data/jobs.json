@@ -394,5 +394,23 @@
     "location": "Austin",
     "date_found": "2026-09-16T22:46:58.874585",
     "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-10231206",
+    "title": "Staff Software Engineer",
+    "company": "General Motors",
+    "url": "https://www.builtinaustin.com/job/staff-software-engineer/10231206",
+    "location": "Austin",
+    "date_found": "2026-09-17T13:14:27.433024",
+    "source": "Built In Austin"
+  },
+  {
+    "id": "builtinaustin-11219760",
+    "title": "Senior Engineering Manager, Observability",
+    "company": "Cloudflare",
+    "url": "https://www.builtinaustin.com/job/senior-engineering-manager-observability/11219760",
+    "location": "Austin",
+    "date_found": "2026-09-17T13:14:27.433034",
+    "source": "Built In Austin"
   }
 ]
