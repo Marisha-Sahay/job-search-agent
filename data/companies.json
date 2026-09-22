@@ -1,42 +1,104 @@
 [
   {
-    "name": "PayPal",
-    "careers_url": "https://paypal.eightfold.ai/careers",
-    "ats_type": "eightfold"
+    "name": "Visa",
+    "careers_url": "https://visa.wd5.myworkdayjobs.com/en-US/Visa",
+    "ats_type": "workday",
+    "api_url": "https://visa.wd5.myworkdayjobs.com/wday/cxs/visa/Visa/jobs",
+    "sector": "fintech"
   },
   {
-    "name": "Visa",
-    "careers_url": "https://search.visa.com/careers/jobs",
-    "ats_type": "custom"
+    "name": "MasterCard",
+    "careers_url": "https://mastercard.wd1.myworkdayjobs.com/en-US/CorporateCareers",
+    "ats_type": "workday",
+    "api_url": "https://mastercard.wd1.myworkdayjobs.com/wday/cxs/mastercard/CorporateCareers/jobs",
+    "sector": "fintech"
+  },
+  {
+    "name": "Stripe",
+    "careers_url": "https://stripe.com/jobs",
+    "ats_type": "greenhouse",
+    "board_token": "stripe",
+    "sector": "fintech"
+  },
+  {
+    "name": "Coinbase",
+    "careers_url": "https://www.coinbase.com/careers",
+    "ats_type": "greenhouse",
+    "board_token": "coinbase",
+    "sector": "fintech"
+  },
+  {
+    "name": "Ramp",
+    "careers_url": "https://ramp.com/careers",
+    "ats_type": "ashby",
+    "board_token": "ramp",
+    "sector": "fintech"
+  },
+  {
+    "name": "Plaid",
+    "careers_url": "https://plaid.com/careers/",
+    "ats_type": "ashby",
+    "board_token": "plaid",
+    "sector": "fintech"
+  },
+  {
+    "name": "Robinhood",
+    "careers_url": "https://robinhood.com/us/en/careers/",
+    "ats_type": "greenhouse",
+    "board_token": "robinhood",
+    "sector": "fintech"
+  },
+  {
+    "name": "Brex",
+    "careers_url": "https://www.brex.com/careers",
+    "ats_type": "greenhouse",
+    "board_token": "brex",
+    "sector": "fintech"
+  },
+  {
+    "name": "Affirm",
+    "careers_url": "https://www.affirm.com/careers",
+    "ats_type": "greenhouse",
+    "board_token": "affirm",
+    "sector": "fintech"
+  },
+  {
+    "name": "PayPal",
+    "careers_url": "https://paypal.eightfold.ai/careers",
+    "ats_type": "eightfold",
+    "domain": "paypal.com",
+    "sector": "fintech"
   },
   {
     "name": "Wise",
     "careers_url": "https://wise.jobs/roles/",
-    "ats_type": "custom"
-  },
-  {
-    "name": "Circle",
-    "careers_url": "https://www.circle.com/en/careers",
-    "ats_type": "greenhouse"
+    "ats_type": "custom",
+    "sector": "fintech"
   },
   {
     "name": "Cloudflare",
     "careers_url": "https://www.cloudflare.com/careers/jobs/",
-    "ats_type": "greenhouse"
+    "ats_type": "greenhouse",
+    "board_token": "cloudflare",
+    "sector": "tech"
   },
   {
     "name": "Atlassian",
     "careers_url": "https://www.atlassian.com/company/careers/all-jobs",
-    "ats_type": "lever"
+    "ats_type": "lever",
+    "board_token": "atlassian",
+    "sector": "tech"
   },
   {
     "name": "Apple",
     "careers_url": "https://jobs.apple.com/en-us/search",
-    "ats_type": "custom"
+    "ats_type": "custom",
+    "sector": "tech"
   },
   {
     "name": "Meta",
     "careers_url": "https://www.metacareers.com/jobs",
-    "ats_type": "custom"
+    "ats_type": "custom",
+    "sector": "tech"
   }
 ]

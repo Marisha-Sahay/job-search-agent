@@ -6,10 +6,8 @@ from scrapers.builtinaustin import scrape_builtinaustin
 from scrapers.workday import scrape_workday
 from scrapers.lever import scrape_lever
 from scrapers.eightfold import scrape_eightfold
-
-# Define the keywords for filtering
-KEYWORDS = ["backend", "full stack", "ai", "senior", "staff", "10+"]
-LOCATIONS = ["austin", "remote"]
+from scrapers.ashby import scrape_ashby
+from scrapers.classifier import enrich_job
 
 def load_companies():
     with open("data/companies.json", "r") as f:
@@ -22,61 +20,117 @@ def load_seen_jobs():
     return []
 
 def save_jobs(jobs):
+    companies = {c["name"].lower(): c for c in load_companies()}
+    enriched_jobs = [enrich_job(j, companies.get(j.get("company", "").lower())) for j in jobs]
+    
     with open("data/jobs.json", "w") as f:
-        json.dump(jobs, f, indent=2)
+        json.dump(enriched_jobs, f, indent=2)
+    
+    # Mirror directly to web/jobs.json for GitHub Pages deployment
+    os.makedirs("web", exist_ok=True)
+    with open("web/jobs.json", "w") as f:
+        json.dump(enriched_jobs, f, indent=2)
 
 def main():
-    print(f"[{datetime.now()}] Starting job search agent...")
+    print(f"[{datetime.now()}] Starting Job Search Agent & FinTech Radar...")
     companies = load_companies()
     seen_jobs = load_seen_jobs()
-    seen_urls = {job['url'] for job in seen_jobs}
     
-    new_jobs_found = []
+    # Map of seen jobs by URL for quick lookup
+    jobs_by_url = {j['url']: j for j in seen_jobs}
     
-    for company in companies:
-        print(f"Scraping {company['name']}...")
-        if company['ats_type'] == 'greenhouse':
-            # We assume the careers URL ends with the board token or we can derive it
-            # For this MVP, we will derive token from the URL or name
-            # Example: https://www.cloudflare.com/careers/jobs/ -> cloudflare
-            # Since cloudflare and circle are the greenhouse ones:
-            board_token = company['name'].lower()
-            if company['name'] == 'Circle': board_token = 'circleci' # common edge case
-            jobs = scrape_greenhouse(company['name'], board_token)
-            new_jobs_found.extend([j for j in jobs if j['url'] not in seen_urls])
-            
-        elif company['ats_type'] == 'workday':
-            # Example Workday careers URL in companies.json: https://paypal.wd5.myworkdayjobs.com/jobs
-            # We need to construct the API URL: https://paypal.wd5.myworkdayjobs.com/wday/cxs/paypal/jobs/jobs
-            api_url = "https://paypal.wd5.myworkdayjobs.com/wday/cxs/paypal/jobs/jobs"
-            jobs = scrape_workday(company['name'], api_url)
-            new_jobs_found.extend([j for j in jobs if j['url'] not in seen_urls])
-            
-        elif company['ats_type'] == 'eightfold':
-            # PayPal uses Eightfold AI
-            domain = "paypal.com"
-            jobs = scrape_eightfold(company['name'], domain)
-            new_jobs_found.extend([j for j in jobs if j['url'] not in seen_urls])
-            
-        elif company['ats_type'] == 'lever':
-            # Example token is usually the company name lowercase
-            board_token = company['name'].lower()
-            jobs = scrape_lever(company['name'], board_token)
-            new_jobs_found.extend([j for j in jobs if j['url'] not in seen_urls])
+    # Track companies scraped successfully in this run for active-job reconciliation
+    successfully_scraped_companies = set()
+    current_active_urls_by_company = {}
 
-    # Also scrape Built In Austin
+    for company in companies:
+        name = company['name']
+        ats = company.get('ats_type')
+        sector = company.get('sector', 'tech')
+        is_fintech = (sector == 'fintech')
+        board_token = company.get('board_token', name.lower())
+        
+        print(f"Scraping {name} ({ats}, sector={sector})...")
+        jobs = []
+        scrape_success = False
+        
+        try:
+            if ats == 'greenhouse':
+                jobs = scrape_greenhouse(name, board_token, is_fintech=is_fintech)
+                scrape_success = True
+            elif ats == 'ashby':
+                jobs = scrape_ashby(name, board_token, is_fintech=is_fintech)
+                scrape_success = True
+            elif ats == 'workday':
+                api_url = company.get('api_url', f"https://{name.lower()}.wd5.myworkdayjobs.com/wday/cxs/{name.lower()}/jobs/jobs")
+                jobs = scrape_workday(name, api_url, is_fintech=is_fintech, max_pages=3)
+                scrape_success = True
+            elif ats == 'eightfold':
+                domain = company.get('domain', f"{name.lower()}.com")
+                jobs = scrape_eightfold(name, domain)
+                scrape_success = True
+            elif ats == 'lever':
+                jobs = scrape_lever(name, board_token)
+                scrape_success = True
+        except Exception as e:
+            print(f"Error scraping {name}: {e}")
+            scrape_success = False
+
+        if scrape_success:
+            successfully_scraped_companies.add(name)
+            current_active_urls_by_company[name] = set()
+            
+            for j in jobs:
+                url = j['url']
+                current_active_urls_by_company[name].add(url)
+                if url in jobs_by_url:
+                    # Job exists, update last seen and reset miss count
+                    jobs_by_url[url]['last_seen_date'] = datetime.now().isoformat()
+                    jobs_by_url[url]['miss_count'] = 0
+                else:
+                    # Brand new job
+                    j['last_seen_date'] = datetime.now().isoformat()
+                    j['first_seen_date'] = datetime.now().isoformat()
+                    j['miss_count'] = 0
+                    jobs_by_url[url] = j
+
+    # Also scrape Built In Austin (Aggregator for Austin tech market)
     print("Scraping Built In Austin (Aggregator)...")
-    bia_jobs = scrape_builtinaustin()
-    new_jobs_found.extend([j for j in bia_jobs if j['url'] not in seen_urls])
-        
-    if new_jobs_found:
-        print(f"Found {len(new_jobs_found)} new jobs matching criteria.")
-        seen_jobs.extend(new_jobs_found)
-        save_jobs(seen_jobs)
-    else:
-        print("No new jobs found.")
-        
-    print(f"[{datetime.now()}] Finished.")
+    try:
+        bia_jobs = scrape_builtinaustin()
+        for j in bia_jobs:
+            url = j['url']
+            if url not in jobs_by_url:
+                j['last_seen_date'] = datetime.now().isoformat()
+                j['first_seen_date'] = datetime.now().isoformat()
+                j['miss_count'] = 0
+                jobs_by_url[url] = j
+    except Exception as e:
+        print(f"Note: Built In Austin scrape skipped or timed out: {e}")
+
+    # Active Requisition Reconciliation: Prune stale / filled jobs
+    # For companies that were successfully scraped, if an existing job was NOT seen, increment miss_count.
+    # If missed 2 consecutive runs, remove it so dead links are eliminated.
+    pruned_count = 0
+    reconciled_jobs = []
+    
+    for url, job in jobs_by_url.items():
+        comp_name = job.get('company')
+        if comp_name in successfully_scraped_companies:
+            active_urls = current_active_urls_by_company.get(comp_name, set())
+            if url not in active_urls:
+                miss_count = job.get('miss_count', 0) + 1
+                job['miss_count'] = miss_count
+                if miss_count >= 2:
+                    pruned_count += 1
+                    continue # Pruned from catalog
+        reconciled_jobs.append(job)
+
+    if pruned_count > 0:
+        print(f"Reconciliation: Pruned {pruned_count} closed/inactive requisitions.")
+
+    save_jobs(reconciled_jobs)
+    print(f"[{datetime.now()}] Finished. Total active catalog size: {len(reconciled_jobs)} jobs.")
 
 if __name__ == "__main__":
     main()

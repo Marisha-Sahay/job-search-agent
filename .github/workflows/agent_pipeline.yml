@@ -2,9 +2,11 @@ name: Job Search Agent Pipeline
 
 on:
   schedule:
-    # Run twice a day at 8 AM and 8 PM UTC (3 AM / 3 PM CDT)
-    - cron: '0 8,20 * * *'
-  workflow_dispatch: # Allow manual trigger
+    # Run twice a day on workdays (Mon-Fri) at off-peak minutes:
+    # - 10:45 UTC: 6:45 AM ET / 5:45 AM CT / 3:45 AM PT (Morning Fresh before work begins)
+    # - 21:45 UTC: 5:45 PM ET / 4:45 PM CT / 2:45 PM PT (Afternoon Intake after recruiter syncs)
+    - cron: '45 10,21 * * 1-5'
+  workflow_dispatch: # Allow manual trigger anytime via GitHub UI
 
 permissions:
   contents: write

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Austin Senior &amp; Staff Tech Radar | Personal Command Center</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="austin">
+    <!-- Private Command Center Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand-wrapper" id="brand-link">
+                <div class="brand-icon" style="background: var(--accent-sage);">📍</div>
+                <div class="brand-text">
+                    <span class="brand-title">Austin Tech Hub</span>
+                    <span class="brand-sub">Senior &amp; Staff Command Center</span>
+                </div>
+            </div>
+            <div class="nav-badge-pill">
+                <span class="pulse-dot" style="background-color: var(--accent-terracotta);"></span>
+                <span>Personal Search Workspace</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-pill" style="border-color: var(--accent-sage-border); color: var(--accent-sage); background: var(--accent-sage-tint);">
+                <span>Austin, TX &amp; Austin-Eligible Remote</span>
+            </div>
+            <h1 id="hero-title" class="hero-title">
+                Austin Senior &amp; Staff <span class="highlight" style="color: var(--accent-sage);">Engineering</span>
+            </h1>
+            <p class="hero-desc">
+                High-leverage engineering roles across all sectors in Austin or Austin-friendly Remote, with personal application and bookmark tracking.
+            </p>
+        </section>
+
+        <!-- Personal Tracker Status Tabs -->
+        <div class="personal-tracker-bar" role="tablist" aria-label="Application Status Tabs">
+            <button type="button" class="tracker-tab active" data-tab="all" id="tab-all">
+                <span>All Matches</span>
+                <span class="badge-counter" id="count-all">0</span>
+            </button>
+            <button type="button" class="tracker-tab" data-tab="saved" id="tab-saved">
+                <span>⭐ Bookmarked</span>
+                <span class="badge-counter" id="count-saved">0</span>
+            </button>
+            <button type="button" class="tracker-tab" data-tab="applied" id="tab-applied">
+                <span>✅ Applied</span>
+                <span class="badge-counter" id="count-applied">0</span>
+            </button>
+        </div>
+
+        <!-- Filter Control Panel -->
+        <section class="filter-panel" aria-label="Job Filter Controls">
+            <div class="search-box-row">
+                <div class="search-input-wrapper">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search by tech stack, company, role (e.g. Distributed Systems, Golang, AI, Principal)..." aria-label="Search jobs">
+                </div>
+            </div>
+
+            <div class="filter-groups">
+                <!-- Level Filter -->
+                <div class="filter-group">
+                    <span class="filter-label">Level</span>
+                    <div class="filter-pills" role="radiogroup" aria-label="Seniority Level Filter">
+                        <button type="button" class="pill-btn active" data-filter-key="level" data-filter-val="all">All Senior+</button>
+                        <button type="button" class="pill-btn" data-filter-key="level" data-filter-val="Senior">Senior</button>
+                        <button type="button" class="pill-btn" data-filter-key="level" data-filter-val="Staff / Lead">Staff / Lead</button>
+                        <button type="button" class="pill-btn" data-filter-key="level" data-filter-val="Principal">Principal / Architect</button>
+                    </div>
+                </div>
+
+                <!-- Sector Filter -->
+                <div class="filter-group">
+                    <span class="filter-label">Sector</span>
+                    <div class="filter-pills" role="radiogroup" aria-label="Sector Filter">
+                        <button type="button" class="pill-btn active" data-filter-key="sector" data-filter-val="all">All Industries</button>
+                        <button type="button" class="pill-btn" data-filter-key="sector" data-filter-val="tech">Cloud / Tech SaaS</button>
+                        <button type="button" class="pill-btn" data-filter-key="sector" data-filter-val="fintech">FinTech</button>
+                        <button type="button" class="pill-btn" data-filter-key="sector" data-filter-val="general">Enterprise / Auto</button>
+                    </div>
+                </div>
+
+                <!-- Workplace & Dropdowns -->
+                <div class="filter-group">
+                    <span class="filter-label">Location</span>
+                    <div class="filter-pills" role="radiogroup" aria-label="Workplace Filter">
+                        <button type="button" class="pill-btn active" data-filter-key="workplace" data-filter-val="all">Austin &amp; Remote</button>
+                        <button type="button" class="pill-btn" data-filter-key="workplace" data-filter-val="hybrid/onsite">Austin In-Office / Hybrid</button>
+                        <button type="button" class="pill-btn" data-filter-key="workplace" data-filter-val="Remote">Remote</button>
+                    </div>
+
+                    <div class="filter-dropdowns">
+                        <select id="company-select" class="filter-select" aria-label="Filter by Company">
+                            <option value="all">All Companies</option>
+                        </select>
+                        <select id="sort-select" class="filter-select" aria-label="Sort Order">
+                            <option value="newest">Sort: Newest First</option>
+                            <option value="company">Sort: Company (A-Z)</option>
+                            <option value="title">Sort: Title (A-Z)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Summary Header -->
+        <div class="results-header">
+            <div id="results-count" class="results-count">Loading Austin roles...</div>
+        </div>
+
+        <!-- Job Cards Container -->
+        <section id="jobs-container" class="jobs-grid" aria-label="Job Postings List">
+            <div class="state-message">
+                <div class="state-icon">📍</div>
+                <div class="state-title">Loading Austin Senior &amp; Staff listings...</div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
